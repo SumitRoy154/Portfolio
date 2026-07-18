@@ -1,0 +1,54 @@
+@import "tailwindcss";
+
+@theme {
+  --color-canvas: #1A1A1A;
+  --color-canvas-light: #232323;
+  --color-canvas-lighter: #2A2A2A;
+  --color-gold: #D4AF37;
+  --color-gold-dim: rgba(212, 175, 55, 0.15);
+  --color-ivory: #E5E7EB;
+  --color-ivory-dim: rgba(229, 231, 235, 0.6);
+
+  --font-syne: 'Syne', sans-serif;
+  --font-jakarta: 'Plus Jakarta Sans', sans-serif;
+}
+
+/* ─── Base ─────────────────────────────────────────── */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background-color: var(--color-canvas);
+  color: var(--color-ivory);
+  font-family: var(--font-jakarta);
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ─── Scrollbar ────────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-canvas);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-gold);
+  border-radius: 3px;
+}
+
+/* ─── Selection ────────────────────────────────────── */
+::selection {
+  background: var(--color-gold);
+  color: var(--color-canvas);
+}
+
+/* ─── Focus ────────────────────────────────────────── */
+*:focus-visible {
+  outline: 2px solid var(--color-gold);
+  outline-offset: 2px;
+}
