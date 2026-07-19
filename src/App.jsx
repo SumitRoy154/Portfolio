@@ -12,7 +12,7 @@ function App() {
   return (
     <>
       <Nav />
-      <main>
+      <main className="md:pl-20">
         <Hero />
         <SectionDivider />
         <About />

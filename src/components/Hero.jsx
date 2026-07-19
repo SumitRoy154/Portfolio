@@ -70,7 +70,7 @@ const Hero = () => {
               <motion.span
                 key={i}
                 variants={wordAnim}
-                className="font-syne font-extrabold text-ivory text-5xl sm:text-7xl lg:text-8xl tracking-tight"
+                className="font-cursive font-normal text-ivory text-4xl sm:text-6xl lg:text-7xl tracking-tight"
               >
                 {word}
               </motion.span>
@@ -106,21 +106,6 @@ const Hero = () => {
         </motion.div>
       </motion.div>
 
-      {/* Scroll indicator */}
-      <motion.div
-        className="absolute bottom-8 left-1/2 -translate-x-1/2"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.5, duration: 0.6 }}
-      >
-        <motion.div
-          animate={{ y: [0, 8, 0] }}
-          transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
-          className="w-5 h-8 rounded-full border border-gold/30 flex items-start justify-center p-1"
-        >
-          <div className="w-1 h-2 rounded-full bg-gold/60" />
-        </motion.div>
-      </motion.div>
     </section>
   )
 }
