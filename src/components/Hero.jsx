@@ -64,13 +64,13 @@ const Hero = () => {
         </motion.p>
 
         {/* Name */}
-        <div className="overflow-hidden mb-6">
-          <div className="flex justify-center gap-4 sm:gap-6">
+        <div className="overflow-hidden py-4 -my-4 mb-2">
+          <div className="flex justify-center gap-4 sm:gap-6 py-2">
             {nameWords.map((word, i) => (
               <motion.span
                 key={i}
                 variants={wordAnim}
-                className="font-cursive font-normal text-ivory text-4xl sm:text-6xl lg:text-7xl tracking-tight"
+                className="font-cursive font-normal text-ivory text-5xl sm:text-7xl lg:text-8xl tracking-tight leading-normal"
               >
                 {word}
               </motion.span>
