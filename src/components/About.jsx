@@ -1,5 +1,36 @@
 import AnimatedSection, { MotionChild } from './AnimatedSection'
-import { MapPin, GraduationCap, Award } from 'lucide-react'
+import { MapPin, GraduationCap, Award, Bot, Binary, Database, Webhook, Layers3, ServerCog } from 'lucide-react'
+import {
+  SiPython,
+  SiJavascript,
+  SiTypescript,
+  SiCplusplus,
+  SiHtml5,
+  SiOpencv,
+  SiPytorch,
+  SiTensorflow,
+  SiScikitlearn,
+  SiPandas,
+  SiNumpy,
+  SiFastapi,
+  SiReact,
+  SiNextdotjs,
+  SiNodedotjs,
+  SiPostgresql,
+  SiMysql,
+  SiMongodb,
+  SiGit,
+  SiGithub,
+  SiDocker,
+  SiDjango,
+  SiFlask,
+} from 'react-icons/si'
+
+const CIcon = () => (
+  <span className="inline-flex h-4 w-4 items-center justify-center rounded-sm border border-current text-[0.55rem] font-bold leading-none">
+    C
+  </span>
+)
 
 const bio = `I'm a Computer Science Engineering undergraduate with a deep focus on AI and Machine Learning. My work spans the full spectrum — from building intelligent computer vision pipelines and GenAI-powered agents to crafting responsive, production-ready front-end interfaces and scalable backend architectures. I'm grounded in core CS fundamentals and driven by a growing passion for enterprise-scale GenAI engineering.`
 
@@ -22,12 +53,66 @@ const facts = [
 ]
 
 const skillGroups = [
-  { title: 'Languages', items: ['Python', 'JavaScript', 'TypeScript', 'C++', 'HTML/CSS'] },
-  { title: 'AI / ML & Computer Vision', items: ['OpenCV', 'Generative AI (LLMs, RAG)', 'PyTorch', 'TensorFlow', 'Pandas', 'NumPy'] },
-  { title: 'Frameworks & Libraries', items: ['FastAPI', 'React.js', 'Next.js', 'Node.js'] },
-  { title: 'Databases', items: ['PostgreSQL', 'MySQL', 'MongoDB'] },
-  { title: 'Tools', items: ['Git', 'GitHub', 'Docker', 'REST APIs'] },
-  { title: 'Core Concepts', items: ['Data Structures & Algorithms', 'OOP', 'DBMS', 'Operating Systems'] },
+  {
+    title: 'Languages',
+    items: [
+      { label: 'Python', icon: <SiPython /> },
+      { label: 'JavaScript', icon: <SiJavascript /> },
+      { label: 'TypeScript', icon: <SiTypescript /> },
+      { label: 'C++', icon: <SiCplusplus /> },
+      { label: 'C', icon: <CIcon /> },
+      { label: 'HTML/CSS', icon: <SiHtml5 /> },
+    ],
+  },
+  {
+    title: 'AI / ML & Computer Vision',
+    items: [
+      { label: 'OpenCV', icon: <SiOpencv /> },
+      { label: 'Generative AI (LLMs, RAG)', icon: <Bot /> },
+      { label: 'PyTorch', icon: <SiPytorch /> },
+      { label: 'TensorFlow', icon: <SiTensorflow /> },
+      { label: 'Scikit-Learn', icon: <SiScikitlearn /> },
+      { label: 'Pandas', icon: <SiPandas /> },
+      { label: 'NumPy', icon: <SiNumpy /> },
+    ],
+  },
+  {
+    title: 'Frameworks & Libraries',
+    items: [
+      { label: 'FastAPI', icon: <SiFastapi /> },
+      { label: 'Flask', icon: <SiFlask /> },
+      { label: 'Django', icon: <SiDjango /> },
+      { label: 'React.js', icon: <SiReact /> },
+      { label: 'Next.js', icon: <SiNextdotjs /> },
+      { label: 'Node.js', icon: <SiNodedotjs /> },
+    ],
+  },
+  {
+    title: 'Databases',
+    items: [
+      { label: 'PostgreSQL', icon: <SiPostgresql /> },
+      { label: 'MySQL', icon: <SiMysql /> },
+      { label: 'MongoDB', icon: <SiMongodb /> },
+    ],
+  },
+  {
+    title: 'Tools',
+    items: [
+      { label: 'Git', icon: <SiGit /> },
+      { label: 'GitHub', icon: <SiGithub /> },
+      { label: 'Docker', icon: <SiDocker /> },
+      { label: 'REST APIs', icon: <Webhook /> },
+    ],
+  },
+  {
+    title: 'Core Concepts',
+    items: [
+      { label: 'Data Structures & Algorithms', icon: <Binary /> },
+      { label: 'OOP', icon: <Layers3 /> },
+      { label: 'DBMS', icon: <Database /> },
+      { label: 'Operating Systems', icon: <ServerCog /> },
+    ],
+  },
 ]
 
 const About = () => {
@@ -89,10 +174,11 @@ const About = () => {
                 <div className="flex flex-wrap gap-2">
                   {group.items.map((item) => (
                     <span
-                      key={item}
-                      className="text-ivory/80 text-xs border border-gold/20 bg-gold/[0.04] px-3 py-1.5 rounded-full hover:border-gold/40 hover:bg-gold/[0.08] transition-all duration-200"
+                      key={item.label}
+                      className="inline-flex items-center gap-1.5 text-ivory/80 text-xs border border-gold/20 bg-gold/[0.04] px-3 py-1.5 rounded-full hover:border-gold/40 hover:bg-gold/[0.08] hover:scale-[1.04] transition-all duration-200"
                     >
-                      {item}
+                      <span className="text-base leading-none text-gold [&>svg]:h-4 [&>svg]:w-4">{item.icon}</span>
+                      {item.label}
                     </span>
                   ))}
                 </div>
