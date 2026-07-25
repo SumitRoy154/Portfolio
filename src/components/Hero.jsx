@@ -151,9 +151,7 @@ const Hero = () => {
               variants={fadeUp}
               className="mt-7 max-w-xl text-pretty text-base leading-7 text-ivory-dim sm:text-lg"
             >
-              I build production-grade computer vision and full-stack systems,
-              from PyTorch models to React interfaces, with a focus on clean
-              architecture and real-world performance.
+              I build production-grade full-stack and AI systems, from RAG pipelines and LLM integrations to React interfaces, with a focus on clean architecture and real-world performance.
             </motion.p>
 
             <motion.div variants={fadeUp} className="mt-10 flex flex-col gap-4 sm:flex-row">

@@ -17,6 +17,7 @@ const projects = [
     ],
     description: 'Full-stack AI agent with LLM-based pipelines for context-aware responses.',
     github: 'https://github.com/SumitRoy154',
+    image: '/Knowledge.png',
   },
   {
     title: 'EventTree',
@@ -29,6 +30,7 @@ const projects = [
     ],
     description: 'Event management platform with role-based access control and analytics.',
     github: 'https://github.com/SumitRoy154',
+    image: '/EventTree.png',
   },
 ]
 
@@ -69,8 +71,36 @@ const Projects = () => {
                   }
                   transition={{ duration: 0.25 }}
                 >
-                  {/* Image container - white box placeholder */}
-                  <div className="w-full h-48 bg-ivory/10 border-b border-gold/10" />
+                  {/* Image container */}
+                  <div className="w-full h-48 bg-ivory/10 border-b border-gold/10 relative overflow-hidden">
+                    {project.image ? (
+                      <>
+                        <motion.img
+                          src={project.image}
+                          alt={project.title}
+                          className="w-full h-full object-contain"
+                          initial={{ rotate: -3, scale: 1 }}
+                          whileHover={{
+                            rotate: 0,
+                            scale: 1.1,
+                          }}
+                          transition={{ duration: 0.3 }}
+                        />
+                        {/* GitHub overlay */}
+                        <a
+                          href={project.github}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="absolute top-3 right-3 bg-canvas/80 backdrop-blur-sm p-2 rounded-full text-ivory/60 hover:text-gold transition-colors"
+                          aria-label={`View ${project.title} on GitHub`}
+                        >
+                          <GitHubIcon size={18} />
+                        </a>
+                      </>
+                    ) : (
+                      <div className="w-full h-full" />
+                    )}
+                  </div>
                   
                   {/* Content */}
                   <div className="p-5 flex flex-col flex-1">
@@ -151,23 +181,34 @@ const Projects = () => {
               </button>
 
               {/* Header */}
-              <div className="flex items-start justify-between mb-6">
-                <div>
-                  <h3 className="font-syne font-bold text-2xl text-ivory mb-1 tracking-tight">
+              <div className="mb-6">
+                <div className="flex items-center gap-3 mb-1">
+                  <h3 className="font-syne font-bold text-2xl text-ivory tracking-tight">
                     {selectedProject.title}
                   </h3>
-                  <p className="text-ivory-dim text-sm">{selectedProject.date}</p>
+                  <a
+                    href={selectedProject.github}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-ivory/40 hover:text-gold transition-colors p-1"
+                    aria-label={`View ${selectedProject.title} on GitHub`}
+                  >
+                    <GitHubIcon size={24} />
+                  </a>
                 </div>
-                <a
-                  href={selectedProject.github}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-ivory/40 hover:text-gold transition-colors p-1"
-                  aria-label={`View ${selectedProject.title} on GitHub`}
-                >
-                  <GitHubIcon size={24} />
-                </a>
+                <p className="text-ivory-dim text-sm">{selectedProject.date}</p>
               </div>
+
+              {/* Image */}
+              {selectedProject.image && (
+                <div className="mb-6 rounded-xl overflow-hidden">
+                  <img
+                    src={selectedProject.image}
+                    alt={selectedProject.title}
+                    className="w-full h-auto"
+                  />
+                </div>
+              )}
 
               {/* Tags */}
               <div className="flex flex-wrap gap-2 mb-6">
