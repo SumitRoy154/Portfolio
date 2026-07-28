@@ -27,7 +27,7 @@ const contactLinks = [
     icon: <LinkedInIcon size={18} />,
     label: 'LinkedIn',
     value: 'sumit-roy-a73098309',
-    href: 'https://linkedin.com/in/sumit-roy-a73098309',
+    href: 'https://www.linkedin.com/in/sumit-roy-a73098309/',
   },
   {
     icon: <MapPin size={18} />,

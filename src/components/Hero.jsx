@@ -1,12 +1,42 @@
 import { useEffect, useState } from 'react'
 import { motion, useReducedMotion } from 'framer-motion'
-import { ArrowDown, Download, ExternalLink } from 'lucide-react'
+import { ArrowDown, Download, ExternalLink, Mail } from 'lucide-react'
+import { FaInstagram, FaDribbble } from 'react-icons/fa'
+import { GitHubIcon, LinkedInIcon } from './icons'
 
 const SCRAMBLE_CHARS = '!@#$^&*+?/<>{}'
 const NAME = 'Sumit Roy'
 const SCRAMBLE_DURATION = 1500
 const SCRAMBLE_INTERVAL_MS = 40
 const RESUME_PATH = '/assets/SumitRoy_Resume.pdf'
+
+const QUICK_LINKS = [
+  {
+    label: 'LinkedIn',
+    href: 'https://www.linkedin.com/in/sumit-roy-a73098309/',
+    icon: <LinkedInIcon size={22} />,
+  },
+  {
+    label: 'X',
+    href: 'https://x.com/SumitRoy339710',
+    icon: <span className="font-bold text-base">X</span>,
+  },
+  {
+    label: 'GitHub',
+    href: 'https://github.com/SumitRoy154',
+    icon: <GitHubIcon size={22} />,
+  },
+  {
+    label: 'Instagram',
+    href: 'https://www.instagram.com/sumit_roy154?igsh=MXE5MTMzdXg5dDFnaA==',
+    icon: <FaInstagram size={22} />,
+  },
+  {
+    label: 'Email',
+    href: 'mailto:sumit.roy.152004@gmail.com',
+    icon: <Mail size={22} />,
+  },
+]
 
 const useTextScramble = (text, duration = SCRAMBLE_DURATION) => {
   const prefersReducedMotion = useReducedMotion()
@@ -115,7 +145,7 @@ const Hero = () => {
       </div>
 
       <motion.div
-        className="relative z-10 mx-auto flex min-h-screen max-w-6xl items-center px-6 py-20 sm:px-10 lg:px-12"
+        className="relative z-10 mx-auto flex min-h-[calc(100vh-2rem)] max-w-6xl items-center px-6 pt-12 pb-16 sm:px-10 md:pt-16 md:pb-20 lg:px-12"
         variants={container}
         initial="hidden"
         animate="visible"
@@ -126,7 +156,11 @@ const Hero = () => {
               variants={fadeUp}
               className="mb-6 inline-flex items-center gap-2 rounded-full border border-gold/20 bg-white/[0.03] px-4 py-2 text-[0.65rem] font-medium uppercase tracking-[0.32em] text-gold"
             >
-              <span className="h-1.5 w-1.5 rounded-full bg-gold shadow-[0_0_16px_rgba(212,175,55,0.75)]" />
+              <motion.span
+                animate={{ opacity: [1, 0.2, 1], scale: [1, 1.25, 1] }}
+                transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+                className="h-1.5 w-1.5 rounded-full bg-gold shadow-[0_0_12px_rgba(212,175,55,0.8)]"
+              />
               OPEN TO FULL-TIME & INTERNSHIP OPPORTUNITIES — 2026
             </motion.div>
 
@@ -184,28 +218,45 @@ const Hero = () => {
             <div className="absolute -inset-6 rounded-[2rem] bg-gold/5 blur-3xl" />
             <div className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-white/[0.03] p-6 shadow-2xl shadow-black/30 backdrop-blur-md sm:p-8">
               <div className="flex items-center justify-between border-b border-white/10 pb-4 text-xs uppercase tracking-[0.3em] text-ivory-dim">
-                <span>Signal</span>
-                <span>Night Mode</span>
+                <span>CURRENTLY DEVELOPING</span>
+                <motion.div
+                  animate={{ rotate: 360 }}
+                  transition={{ duration: 12, repeat: Infinity, ease: "linear" }}
+                  className="relative mr-4 flex items-center justify-center text-gold drop-shadow-[0_0_8px_rgba(212,175,55,0.7)]"
+                  title="Click"
+                >
+                  <FaDribbble size={22} />
+                </motion.div>
               </div>
 
               <div className="mt-6 space-y-4">
                 <div className="h-px w-full bg-gradient-to-r from-transparent via-gold/40 to-transparent" />
+                <div className="rounded-2xl border border-gold/15 bg-gradient-to-br from-gold/10 via-white/[0.02] to-transparent p-5">
+                  <p className="text-xs uppercase tracking-[0.28em] text-gold">Quick Links</p>
+                  <div className="mt-4 flex flex-wrap gap-2.5">
+                    {QUICK_LINKS.map((link) => (
+                      <a
+                        key={link.label}
+                        href={link.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label={link.label}
+                        className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-gold/25 bg-canvas/45 text-ivory/80 transition-all duration-200 hover:-translate-y-0.5 hover:border-gold/60 hover:text-gold"
+                      >
+                        {link.icon}
+                      </a>
+                    ))}
+                  </div>
+                </div>
                 <div className="grid grid-cols-2 gap-4 text-sm text-ivory-dim">
                   <div className="rounded-2xl border border-white/10 bg-black/20 p-4">
                     <p className="text-gold text-xs uppercase tracking-[0.25em]">Focus</p>
-                    <p className="mt-2 text-ivory">AI, web systems, and clean interfaces</p>
+                    <p className="mt-2 text-ivory">Currently working on AI agents that reason, plan, and act autonomously.</p>
                   </div>
                   <div className="rounded-2xl border border-white/10 bg-black/20 p-4">
                     <p className="text-gold text-xs uppercase tracking-[0.25em]">Stack</p>
-                    <p className="mt-2 text-ivory">React, Tailwind, motion, and backend logic</p>
+                    <p className="mt-2 text-ivory">LangGraph, FastAPI, React, PostgreSQL, Gemini API</p>
                   </div>
-                </div>
-                <div className="rounded-2xl border border-gold/15 bg-gradient-to-br from-gold/10 via-white/[0.02] to-transparent p-5">
-                  <p className="text-xs uppercase tracking-[0.28em] text-gold">Current mode</p>
-                  <p className="mt-3 text-sm leading-7 text-ivory-dim">
-                    Building polished products with a restrained cyberpunk aesthetic:
-                    high contrast, subtle glow, and motion that feels intentional.
-                  </p>
                 </div>
               </div>
             </div>

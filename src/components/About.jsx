@@ -32,7 +32,7 @@ const CIcon = () => (
   </span>
 )
 
-const bio = `I'm a Computer Science Engineering undergraduate with a deep focus on AI and Machine Learning. My work spans the full spectrum — from building intelligent computer vision pipelines and GenAI-powered agents to crafting responsive, production-ready front-end interfaces and scalable backend architectures. I'm grounded in core CS fundamentals and driven by a growing passion for enterprise-scale GenAI engineering.`
+const bio = `I'm Sumit, a Full Stack & AI Engineer building production-ready systems across computer vision, GenAI agents, and scalable web applications. My work includes AI agent systems built with LangChain for LLM orchestration, and computer vision pipelines using OpenCV. On the full-stack side, I build platforms with role-based access control and asynchronous processing. I work across the stack — React/Next.js on the frontend, Python and Node on the backend — with a growing focus on applying GenAI to real enterprise workflows.`
 
 const facts = [
   {
@@ -119,45 +119,48 @@ const About = () => {
   return (
     <AnimatedSection id="about" className="py-24 sm:py-32 px-6">
       <div className="max-w-6xl mx-auto">
-        {/* Eyebrow */}
-        <MotionChild>
-          <p className="text-gold text-xs font-medium tracking-[0.25em] uppercase mb-4">
-            01 — About
-          </p>
-        </MotionChild>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start">
+          <div>
+            {/* Eyebrow */}
+            <MotionChild>
+              <p className="text-gold text-xs font-medium tracking-[0.25em] uppercase mb-4">
+                01 — About
+              </p>
+            </MotionChild>
 
-        <MotionChild>
-          <h2 className="font-syne font-extrabold text-3xl sm:text-4xl lg:text-5xl text-ivory mb-8 tracking-tight">
-            Who I Am
-          </h2>
-        </MotionChild>
+            <MotionChild>
+              <h2 className="font-syne font-extrabold text-3xl sm:text-4xl lg:text-5xl text-ivory mb-8 tracking-tight">
+                Who I Am
+              </h2>
+            </MotionChild>
 
-        {/* Bio */}
-        <MotionChild>
-          <p className="text-ivory-dim text-base sm:text-lg max-w-3xl leading-relaxed mb-12">
-            {bio}
-          </p>
-        </MotionChild>
-
-        {/* Key Facts */}
-        <MotionChild>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-16">
-            {facts.map((fact) => (
-              <div
-                key={fact.label}
-                className="border border-gold/15 rounded-xl p-5 bg-canvas-light/50"
-              >
-                <div className="flex items-center gap-2 mb-2">
-                  {fact.icon}
-                  <span className="text-gold text-xs font-medium tracking-[0.15em] uppercase">
-                    {fact.label}
-                  </span>
-                </div>
-                <p className="text-ivory text-sm leading-relaxed">{fact.value}</p>
-              </div>
-            ))}
+            {/* Bio */}
+            <MotionChild>
+              <p className="text-ivory-dim text-base sm:text-lg max-w-3xl leading-relaxed mb-12 lg:ml-auto">
+                {bio}
+              </p>
+            </MotionChild>
           </div>
-        </MotionChild>
+
+          <MotionChild>
+            <div className="grid grid-cols-1 gap-4 lg:max-w-md lg:mt-15">
+              {facts.map((fact) => (
+                <div
+                  key={fact.label}
+                  className="border border-gold/15 rounded-xl p-5 bg-canvas-light/50"
+                >
+                  <div className="flex items-center gap-2 mb-2">
+                    {fact.icon}
+                    <span className="text-gold text-xs font-medium tracking-[0.15em] uppercase">
+                      {fact.label}
+                    </span>
+                  </div>
+                  <p className="text-ivory text-sm leading-relaxed">{fact.value}</p>
+                </div>
+              ))}
+            </div>
+          </MotionChild>
+        </div>
 
         {/* Skills */}
         <MotionChild>

@@ -78,7 +78,7 @@ const Projects = () => {
                         <motion.img
                           src={project.image}
                           alt={project.title}
-                          className="w-full h-full object-contain"
+                          className="w-full h-full object-contain border-4 border-gold/25 rounded-2xl bg-canvas/20"
                           initial={{ rotate: -3, scale: 1 }}
                           whileHover={{
                             rotate: 0,
