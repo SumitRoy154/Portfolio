@@ -1,8 +1,34 @@
 import { useState } from 'react'
+import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { z } from 'zod'
 import AnimatedSection, { MotionChild } from './AnimatedSection'
-import { Mail, Phone, MapPin, Send } from 'lucide-react'
+import { Mail, Phone, MapPin, Send, Loader2 } from 'lucide-react'
 import { GitHubIcon, LinkedInIcon } from './icons'
+import { FaDribbble } from 'react-icons/fa'
+import { motion } from 'framer-motion'
 import footerImage from '../../Footer Image .png'
+
+// Zod schema for client-side validation
+const contactSchema = z.object({
+  name: z
+    .string()
+    .min(2, 'Name must be at least 2 characters')
+    .max(100, 'Name must be less than 100 characters')
+    .trim(),
+  email: z
+    .string()
+    .min(1, 'Email is required')
+    .email('Invalid email address')
+    .regex(/^[^\s@]+@[^\s@]+\.[^\s@]+$/, 'Invalid email format')
+    .trim(),
+  message: z
+    .string()
+    .min(10, 'Message must be at least 10 characters')
+    .max(2000, 'Message must be less than 2000 characters')
+    .trim(),
+  honeypot: z.string().optional(),
+})
 
 const contactLinks = [
   {
@@ -38,15 +64,49 @@ const contactLinks = [
 ]
 
 const Contact = () => {
-  const [form, setForm] = useState({ name: '', email: '', message: '' })
-  const [submitted, setSubmitted] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [submitStatus, setSubmitStatus] = useState('idle')
+  const [errorMessage, setErrorMessage] = useState('')
 
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    // Static form — no backend
-    setSubmitted(true)
-    setTimeout(() => setSubmitted(false), 3000)
-    setForm({ name: '', email: '', message: '' })
+  const {
+    register,
+    handleSubmit: handleFormSubmit,
+    formState: { errors },
+    reset,
+  } = useForm({
+    resolver: zodResolver(contactSchema),
+  })
+
+  const onSubmit = async (data) => {
+    setIsSubmitting(true)
+    setSubmitStatus('idle')
+    setErrorMessage('')
+
+    try {
+      const response = await fetch('http://localhost:3001/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      })
+
+      const result = await response.json()
+
+      if (response.ok) {
+        setSubmitStatus('success')
+        reset()
+        setTimeout(() => setSubmitStatus('idle'), 5000)
+      } else {
+        setSubmitStatus('error')
+        setErrorMessage(result.error || 'Something went wrong. Please try again later.')
+      }
+    } catch (error) {
+      setSubmitStatus('error')
+      setErrorMessage('Something went wrong. Please try again later.')
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   return (
@@ -111,7 +171,16 @@ const Contact = () => {
 
             {/* Contact form */}
             <MotionChild>
-              <form onSubmit={handleSubmit} className="space-y-4">
+              <form onSubmit={handleFormSubmit(onSubmit)} className="space-y-4">
+                {/* Hidden honeypot field */}
+                <input
+                  type="text"
+                  {...register('honeypot')}
+                  style={{ display: 'none' }}
+                  tabIndex={-1}
+                  autoComplete="off"
+                />
+
                 <div>
                   <label htmlFor="contact-name" className="text-ivory-dim text-xs uppercase tracking-wider block mb-2">
                     Name
@@ -119,12 +188,15 @@ const Contact = () => {
                   <input
                     id="contact-name"
                     type="text"
-                    required
-                    value={form.name}
-                    onChange={(e) => setForm({ ...form, name: e.target.value })}
-                    className="w-full bg-canvas-light border border-gold/15 rounded-xl px-4 py-3 text-ivory text-sm placeholder:text-ivory/20 focus:border-gold/40 focus:outline-none transition-colors"
+                    {...register('name')}
+                    className={`w-full bg-canvas-light border rounded-xl px-4 py-3 text-ivory text-sm placeholder:text-ivory/20 focus:outline-none transition-colors ${
+                      errors.name ? 'border-red-500/50 focus:border-red-500/70' : 'border-gold/15 focus:border-gold/40'
+                    }`}
                     placeholder="Your name"
                   />
+                  {errors.name && (
+                    <p className="text-red-400 text-xs mt-1">{errors.name.message}</p>
+                  )}
                 </div>
                 <div>
                   <label htmlFor="contact-email" className="text-ivory-dim text-xs uppercase tracking-wider block mb-2">
@@ -133,12 +205,15 @@ const Contact = () => {
                   <input
                     id="contact-email"
                     type="email"
-                    required
-                    value={form.email}
-                    onChange={(e) => setForm({ ...form, email: e.target.value })}
-                    className="w-full bg-canvas-light border border-gold/15 rounded-xl px-4 py-3 text-ivory text-sm placeholder:text-ivory/20 focus:border-gold/40 focus:outline-none transition-colors"
+                    {...register('email')}
+                    className={`w-full bg-canvas-light border rounded-xl px-4 py-3 text-ivory text-sm placeholder:text-ivory/20 focus:outline-none transition-colors ${
+                      errors.email ? 'border-red-500/50 focus:border-red-500/70' : 'border-gold/15 focus:border-gold/40'
+                    }`}
                     placeholder="you@example.com"
                   />
+                  {errors.email && (
+                    <p className="text-red-400 text-xs mt-1">{errors.email.message}</p>
+                  )}
                 </div>
                 <div>
                   <label htmlFor="contact-message" className="text-ivory-dim text-xs uppercase tracking-wider block mb-2">
@@ -146,21 +221,58 @@ const Contact = () => {
                   </label>
                   <textarea
                     id="contact-message"
-                    required
                     rows={4}
-                    value={form.message}
-                    onChange={(e) => setForm({ ...form, message: e.target.value })}
-                    className="w-full bg-canvas-light border border-gold/15 rounded-xl px-4 py-3 text-ivory text-sm placeholder:text-ivory/20 focus:border-gold/40 focus:outline-none transition-colors resize-none"
+                    {...register('message')}
+                    className={`w-full bg-canvas-light border rounded-xl px-4 py-3 text-ivory text-sm placeholder:text-ivory/20 focus:outline-none transition-colors resize-none ${
+                      errors.message ? 'border-red-500/50 focus:border-red-500/70' : 'border-gold/15 focus:border-gold/40'
+                    }`}
                     placeholder="Your message…"
                   />
+                  {errors.message && (
+                    <p className="text-red-400 text-xs mt-1">{errors.message.message}</p>
+                  )}
                 </div>
-                <button
-                  type="submit"
-                  className="inline-flex items-center gap-2 bg-ivory text-canvas font-semibold text-sm px-6 py-3 rounded-full hover:scale-[1.02] hover:brightness-110 transition-all duration-200 cursor-pointer"
-                >
-                  {submitted ? 'Message Sent!' : 'Send Message'}
-                  <Send size={14} />
-                </button>
+                
+                {/* Status messages */}
+                {submitStatus === 'success' && (
+                  <div className="bg-green-500/10 border border-green-500/30 text-green-400 px-4 py-3 rounded-xl text-sm">
+                    Thank you! Your message has been sent.
+                  </div>
+                )}
+                
+                {submitStatus === 'error' && (
+                  <div className="bg-red-500/10 border border-red-500/30 text-red-400 px-4 py-3 rounded-xl text-sm">
+                    {errorMessage}
+                  </div>
+                )}
+                
+                <div className="flex items-center gap-3">
+                  <button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className="inline-flex items-center gap-2 bg-ivory text-canvas font-semibold text-sm px-6 py-3 rounded-full hover:scale-[1.02] hover:brightness-110 transition-all duration-200 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
+                  >
+                    {isSubmitting ? (
+                      <>
+                        <Loader2 size={14} className="animate-spin" />
+                        Sending...
+                      </>
+                    ) : (
+                      <>
+                        Send Message
+                        <Send size={14} />
+                      </>
+                    )}
+                  </button>
+                  <motion.div
+                    animate={{ rotate: 360 }}
+                    transition={{ duration: 12, repeat: Infinity, ease: "linear" }}
+                    className="relative flex items-center justify-center text-gold drop-shadow-[0_0_8px_rgba(212,175,55,0.7)]"
+                    title="Basketball"
+                  >
+                    <FaDribbble size={22} />
+                  </motion.div>
+                </div>
               </form>
             </MotionChild>
           </div>

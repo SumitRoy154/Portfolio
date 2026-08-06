@@ -74,29 +74,17 @@ const Projects = () => {
                   {/* Image container */}
                   <div className="w-full h-48 bg-ivory/10 border-b border-gold/10 relative overflow-hidden">
                     {project.image ? (
-                      <>
-                        <motion.img
-                          src={project.image}
-                          alt={project.title}
-                          className="w-full h-full object-contain border-4 border-gold/25 rounded-2xl bg-canvas/20"
-                          initial={{ rotate: -3, scale: 1 }}
-                          whileHover={{
-                            rotate: 0,
-                            scale: 1.1,
-                          }}
-                          transition={{ duration: 0.3 }}
-                        />
-                        {/* GitHub overlay */}
-                        <a
-                          href={project.github}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="absolute top-3 right-3 bg-canvas/80 backdrop-blur-sm p-2 rounded-full text-ivory/60 hover:text-gold transition-colors"
-                          aria-label={`View ${project.title} on GitHub`}
-                        >
-                          <GitHubIcon size={18} />
-                        </a>
-                      </>
+                      <motion.img
+                        src={project.image}
+                        alt={project.title}
+                        className="w-full h-full object-contain"
+                        initial={{ rotate: 0, scale: 1 }}
+                        whileHover={{
+                          rotate: 3,
+                          scale: 1.05,
+                        }}
+                        transition={{ duration: 0.3 }}
+                      />
                     ) : (
                       <div className="w-full h-full" />
                     )}

@@ -1,16 +1,18 @@
 import { motion, useReducedMotion } from 'framer-motion'
 import AnimatedSection, { MotionChild } from './AnimatedSection'
-import { Award, Trophy, Users, Zap, Medal } from 'lucide-react'
+import { Award, Trophy, Users, Zap, Medal, ExternalLink } from 'lucide-react'
 
 const certificates = [
-  { title: 'MATLAB Course', subtitle: 'Certification', icon: <Award size={20} className="text-gold" /> },
-  { title: 'CSI Coding Essentials', subtitle: 'Certification', icon: <Zap size={20} className="text-gold" /> },
-  { title: 'Modern Sensors Technology & Industrial Applications', subtitle: 'Certification', icon: <Medal size={20} className="text-gold" /> },
+  { title: 'Google DeepMind AI Research Foundations', subtitle: 'Google Cloud Skills Boost · Apr 2026', icon: <Award size={20} className="text-gold" />, link: 'https://drive.google.com/file/d/15ZwwbYSsd2ZFMQ_Y0GPAfZEscl_H58ku/view' },
+  { title: '5-Day AI Agents Intensive Course', subtitle: 'Google Badge · Kaggle', icon: <Zap size={20} className="text-gold" />, link: 'https://www.kaggle.com/certification/badges/sumitroy54/105' },
+  { title: 'PHP and MySQL Certification', subtitle: 'Spoken Tutorial · IIT Bombay', icon: <Medal size={20} className="text-gold" />, link: 'https://drive.google.com/file/d/1Yp42h2bQB36x7G9X2knFwrm6dqir-1Op/view' },
+  { title: 'Fundamentals of ML & AI', subtitle: 'AWS · Jul 2026', icon: <Award size={20} className="text-gold" />, link: 'https://drive.google.com/file/d/1h4GhzlY89_7fYxx9LWLu5Liheu9WTxte/view' },
+  { title: 'Google Skills Profile', subtitle: 'Public Profile', icon: <Trophy size={20} className="text-gold" />, link: 'https://www.skills.google/public_profiles/848c8061-e4f4-4405-ae3c-c71ebbb9b8a5' },
 ]
 
 const achievements = [
   { icon: <Users size={16} className="text-gold/70" />, text: 'Participated in Smart India Hackathon and Mumbai Hacks Hackathon' },
-  { icon: <Trophy size={16} className="text-gold/70" />, text: 'Led a 13-member team building an AI-based Library Management System (NLP mini project) — awarded full evaluation marks' },
+  { icon: <Trophy size={16} className="text-gold/70" />, text: 'Led a 12-member team building an AI-based Library Management System (NLP mini project) — awarded full evaluation marks' },
   { icon: <Zap size={16} className="text-gold/70" />, text: 'Attended E-Summit\'25 at IIT Bombay' },
   { icon: <Medal size={16} className="text-gold/70" />, text: '1st Rank — Alegria Treasure Hunt · 3rd Rank — Ad Mad Competition · 2nd Rank — Collegiate Throwball and Collegiate Basketball' },
 ]
@@ -35,30 +37,40 @@ const Certificates = () => {
         </MotionChild>
 
         {/* Certificate cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-16">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-16">
           {certificates.map((cert) => (
             <MotionChild key={cert.title}>
-              <motion.div
-                className="border border-gold/10 rounded-2xl p-6 bg-canvas-light/30 group"
-                whileHover={
-                  prefersReducedMotion
-                    ? {}
-                    : {
-                        y: -3,
-                        borderColor: 'rgba(212, 175, 55, 0.25)',
-                        boxShadow: '0 0 24px rgba(212, 175, 55, 0.05)',
-                      }
-                }
-                transition={{ duration: 0.25 }}
+              <a
+                href={cert.link}
+                target="_blank"
+                rel="noopener noreferrer"
               >
-                <div className="p-2.5 rounded-xl bg-gold/[0.08] border border-gold/15 w-fit mb-4">
-                  {cert.icon}
-                </div>
-                <h3 className="font-syne font-bold text-base text-ivory mb-1 tracking-tight">
-                  {cert.title}
-                </h3>
-                <p className="text-ivory-dim text-xs">{cert.subtitle}</p>
-              </motion.div>
+                <motion.div
+                  className="border border-gold/10 rounded-2xl p-6 bg-canvas-light/30 group cursor-pointer h-full"
+                  whileHover={
+                    prefersReducedMotion
+                      ? {}
+                      : {
+                          y: -3,
+                          borderColor: 'rgba(212, 175, 55, 0.25)',
+                          boxShadow: '0 0 24px rgba(212, 175, 55, 0.05)',
+                        }
+                  }
+                  transition={{ duration: 0.25 }}
+                >
+                  <div className="p-2.5 rounded-xl bg-gold/[0.08] border border-gold/15 w-fit mb-4">
+                    {cert.icon}
+                  </div>
+                  <h3 className="font-syne font-bold text-base text-ivory mb-1 tracking-tight">
+                    {cert.title}
+                  </h3>
+                  <p className="text-ivory-dim text-xs mb-3">{cert.subtitle}</p>
+                  <div className="flex items-center gap-1 text-gold/60 text-xs group-hover:text-gold transition-colors">
+                    <ExternalLink size={12} />
+                    <span>View Certificate</span>
+                  </div>
+                </motion.div>
+              </a>
             </MotionChild>
           ))}
         </div>
