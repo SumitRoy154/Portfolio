@@ -11,7 +11,7 @@ export async function sendContactEmail(data) {
   const { name, email, message } = data;
 
   try {
-    const response = await resend.emails.send({
+    const { data: resData, error } = await resend.emails.send({
       from: process.env.RESEND_FROM_EMAIL || 'onboarding@resend.dev',
       to: process.env.YOUR_EMAIL || 'sumit.roy.152004@gmail.com',
       subject: 'New Portfolio Contact',
@@ -29,8 +29,14 @@ export async function sendContactEmail(data) {
       `,
     });
 
-    return response;
+    if (error) {
+      console.error('Resend API returned error:', error);
+      throw new Error(error.message || 'Failed to send email via Resend');
+    }
+
+    return resData;
   } catch (error) {
-    throw new Error('Failed to send email');
+    console.error('sendContactEmail error:', error.message);
+    throw error;
   }
 }
