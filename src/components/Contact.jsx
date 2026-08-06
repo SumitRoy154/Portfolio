@@ -7,7 +7,7 @@ import { Mail, Phone, MapPin, Send, Loader2 } from 'lucide-react'
 import { GitHubIcon, LinkedInIcon } from './icons'
 import { FaDribbble } from 'react-icons/fa'
 import { motion } from 'framer-motion'
-import footerImage from '../../Footer Image .png'
+const footerImage = '/footer-image.png'
 
 // Zod schema for client-side validation
 const contactSchema = z.object({
