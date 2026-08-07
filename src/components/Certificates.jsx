@@ -14,7 +14,7 @@ const achievements = [
   { icon: <Users size={16} className="text-gold/70" />, text: 'Participated in Smart India Hackathon and Mumbai Hacks Hackathon' },
   { icon: <Trophy size={16} className="text-gold/70" />, text: 'Led a 12-member team building an AI-based Library Management System (NLP mini project) — awarded full evaluation marks' },
   { icon: <Zap size={16} className="text-gold/70" />, text: 'Attended E-Summit\'25 at IIT Bombay' },
-  { icon: <Medal size={16} className="text-gold/70" />, text: '1st Rank — Alegria Treasure Hunt · 3rd Rank — Ad Mad Competition · 2nd Rank — Collegiate Throwball and Collegiate Basketball' },
+  { icon: <Medal size={16} className="text-gold/70" />, text: '1st Rank — Alegria Treasure Hunt · 3rd Rank — BIS Ad Mad Competition · 2nd Rank — Collegiate Throwball and Collegiate Basketball' },
 ]
 
 const Certificates = () => {
