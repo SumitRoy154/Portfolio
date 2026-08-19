@@ -8,7 +8,7 @@ const SCRAMBLE_CHARS = '!@#$^&*+?/<>{}'
 const NAME = 'Sumit Roy'
 const SCRAMBLE_DURATION = 1500
 const SCRAMBLE_INTERVAL_MS = 40
-const RESUME_PATH = '/assets/SumitRoy_Resume.pdf'
+const RESUME_PATH = 'public/Sumit_Roy_Resume.pdf'
 
 const QUICK_LINKS = [
   {
