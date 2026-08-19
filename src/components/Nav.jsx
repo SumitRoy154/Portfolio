@@ -2,8 +2,7 @@ import { useState, useEffect } from 'react'
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion'
 import { Menu, X, FileText } from 'lucide-react'
 
-const RESUME_URL = 'https://drive.google.com/drive/folders/1quhmqo79982UtM4MhqWUjGmduYROzuKm'
-
+const RESUME_URL = 'https://drive.google.com/file/d/1VdzOZ5_OGvdRTGcZ7TEUXapzbMtKuujE/view?usp=sharing'
 const navLinks = [
   { label: 'About', to: 'about' },
   { label: 'Projects', to: 'projects' },
